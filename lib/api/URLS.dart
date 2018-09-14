@@ -15,30 +15,32 @@ Uri topicsList(
     String section,
     bool mytopics = false,
     User user}) {
-  var uri = new Uri.http(BASE, TOPIC_LIST);
+  var params = new Map<String, String>();
+
   if (topics != 0) {
-    uri.queryParameters["topics"] = topics.toString();
+    params["topics"] = topics.toString();
   }
 
   if (utime != null) {
-    uri.queryParameters["utime"] = utime.millisecondsSinceEpoch.toString();
+    params["utime"] = utime.millisecondsSinceEpoch.toString();
   }
 
   if (forum != null) {
-    uri.queryParameters["forum"] = forum.toString().split(".")[1];
+    params["forum"] = forum.toString().split(".")[1];
   }
 
   if (section != null) {
-    uri.queryParameters["section"] = section;
+    params["section"] = section;
   }
 
   if (mytopics) {
-    uri.queryParameters["mytopics"] = (mytopics ? 1 : 0).toString();
+    params["mytopics"] = (mytopics ? 1 : 0).toString();
   }
 
   if (user != null) {
-    uri.queryParameters["user"] = user.id;
+    params["user"] = user.id;
   }
 
-  return uri;
+  return new Uri(
+      scheme: 'https', host: BASE, path: TOPIC_LIST, queryParameters: params);
 }
