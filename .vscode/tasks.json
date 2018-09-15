@@ -4,9 +4,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "dart console",
+            "label": "mistazzy tests",
             "type": "shell",
-            "command": "dart lib/test.dart"
+            "command": "dart test/test.dart",
+            "problemMatcher": null
         }
     ]
 }

@@ -1,4 +1,3 @@
-import 'Forum.dart';
 import 'dart:convert' as converter;
 
 class Topic {
@@ -8,7 +7,7 @@ class Topic {
   String text;
 
 // - одно из {'1c','it','life','moder'}
-  Forum forum;
+  String forum;
 
 // - секция ветки
   String section;

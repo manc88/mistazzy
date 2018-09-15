@@ -1,8 +1,7 @@
 # mistazzy
 
-A new Flutter project.
+Flutter skills improvement
 
-## Getting Started
+## Description
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+android/ios client for forum.mista.ru

@@ -1,5 +1,4 @@
-import 'package:mistazzy/models/Forum.dart';
-import 'package:mistazzy/models/User.dart';
+import 'package:mistazzy/models/user.dart';
 
 const String BASE = "forum.mista.ru";
 const String TOPIC_GET = "ajax_gettopic.php";
@@ -11,7 +10,7 @@ const String LOGIN = "ajax_login.php";
 Uri topicsList(
     {int topics = 0,
     DateTime utime,
-    Forum forum,
+    String forum,
     String section,
     bool mytopics = false,
     User user}) {
@@ -26,7 +25,7 @@ Uri topicsList(
   }
 
   if (forum != null) {
-    params["forum"] = forum.toString().split(".")[1];
+    params["forum"] = forum;
   }
 
   if (section != null) {
@@ -44,3 +43,5 @@ Uri topicsList(
   return new Uri(
       scheme: 'https', host: BASE, path: TOPIC_LIST, queryParameters: params);
 }
+
+Uri getTopic() {}
