@@ -1,4 +1,4 @@
-import 'dart:convert' as converter;
+//import 'dart:convert' as converter;
 
 class Topic {
   String id;
@@ -16,19 +16,19 @@ class Topic {
   DateTime created;
 
 //- user_id автора ветки
-  String user_id;
+  String userId;
 
 //- ник автора ветки
-  String user_name;
+  String userName;
 
 //- дата/время обновления ветки
   DateTime updated;
 
 //- ник обновившего ветки
-  String updated_name;
+  String updatedName;
 
 //- количество ответов
-  int answers_count;
+  int answersCount;
 
 //- 1 если ветка утоплена
   bool down;
@@ -40,16 +40,12 @@ class Topic {
   bool deleted;
 
 //- 1 если голосование
-  bool is_voting;
+  bool isVoting;
 
 //- массив вариантов голосования:
   bool voting;
 
-  Topic.fromPreview(String JsonString) {
-    ;
-  }
+  Topic.fromPreview(String jsonString);
 
-  Topic.fromFullJSON(String JsonString) {
-    ;
-  }
+  Topic.fromFullJSON(String jsonString);
 }

@@ -2,7 +2,5 @@ class User {
   String id;
   String name;
 
-  User.fromJSON(String JSONString) {
-    ;
-  }
+  User.fromJSON(String jsonString);
 }

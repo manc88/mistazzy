@@ -44,4 +44,6 @@ Uri topicsList(
       scheme: 'https', host: BASE, path: TOPIC_LIST, queryParameters: params);
 }
 
-Uri getTopic() {}
+Uri getTopic() {
+  return null;
+}

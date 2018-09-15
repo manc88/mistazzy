@@ -15,7 +15,5 @@ class Message {
 //вариант голосования
   String vote;
 
-  Message.fromJSON(String JSONString) {
-    ;
-  }
+  Message.fromJSON(String jsonString);
 }
