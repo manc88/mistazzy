@@ -1,6 +1,8 @@
 class User {
-  String id;
-  String name;
+  String id = "init";
+  String name = "init";
+
+  User(this.id, this.name);
 
   User.fromJSON(String jsonString);
 }

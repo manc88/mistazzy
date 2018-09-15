@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mistazzy/ui/topicList.dart';
 
 void main() => runApp(new MistazzyApp());
 
@@ -11,6 +12,7 @@ class MistazzyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("mistazzy"),
         ),
+        body: TopicList(),
       ),
     );
   }
