@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mistazzy/ui/topicList.dart';
+import 'package:mistazzy/widgets/topicList.dart';
 
 void main() => runApp(new MistazzyApp());
 
