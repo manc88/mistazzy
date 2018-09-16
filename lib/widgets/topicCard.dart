@@ -76,7 +76,7 @@ class _TopicTitleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(2.0),
+      //padding: EdgeInsets.all(2.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,29 +111,58 @@ class _TopicBottomRow extends StatelessWidget {
       // margin: EdgeInsets.all(4.0),
       child: Row(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(
-                Icons.chat,
-                size: 20.0,
-                color: Colors.blueGrey,
-              ),
-              Text(
-                answersCount.toString(),
-                style: TextStyle(
-                    color: Colors.blueGrey, fontWeight: FontWeight.bold),
-              ),
-              Container(
-                width: 4.0,
-              ),
-              Text(forum)
-            ],
-          ),
+          MessageCount(answersCount: answersCount),
+          Spacer(10),
+          Text(forum),
+          Spacer(10),
           votePic()
         ],
       ),
     );
+  }
+}
+
+class MessageCount extends StatelessWidget {
+  const MessageCount({
+    Key key,
+    @required this.answersCount,
+  }) : super(key: key);
+
+  final int answersCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Icon(
+          Icons.chat,
+          size: 20.0,
+          color: Colors.blueGrey,
+        ),
+        Text(
+          answersCount.toString(),
+          style: TextStyle(
+              color: Colors.blueGrey,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0),
+        ),
+      ],
+    );
+  }
+}
+
+class Spacer extends StatelessWidget {
+  final int _width;
+
+  const Spacer(
+    this._width, {
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(width: _width.toDouble());
   }
 }
