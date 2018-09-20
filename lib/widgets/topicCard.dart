@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:mistazzy/models/user.dart';
 import 'package:mistazzy/models/topic.dart';
+import 'package:mistazzy/nav/topicPage.dart';
 
 class TopicCard extends StatelessWidget {
   final Topic topic;
@@ -75,19 +76,23 @@ class _TopicTitleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //padding: EdgeInsets.all(2.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(title,
-              textAlign: TextAlign.left,
-              //overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontSize: 20.0, color: Colors.grey, fontFamily: "Roboto"))
-        ],
+    return GestureDetector(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (BuildContext cont) => TopicPage())),
+      child: Container(
+        //padding: EdgeInsets.all(2.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(title,
+                textAlign: TextAlign.left,
+                //overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 20.0, color: Colors.grey, fontFamily: "Roboto"))
+          ],
+        ),
       ),
     );
   }

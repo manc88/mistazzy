@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mistazzy/nav/topicListPage.dart';
 import 'package:mistazzy/widgets/topicList.dart';
 
 import 'package:flutter/rendering.dart';
@@ -14,12 +15,7 @@ class MistazzyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "mistazyy",
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("mistazzy"),
-        ),
-        body: TopicList(),
-      ),
+      home: TopicListPage(),
     );
   }
 }
