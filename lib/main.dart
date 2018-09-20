@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mistazzy/widgets/topicList.dart';
 
-void main() => runApp(new MistazzyApp());
+import 'package:flutter/rendering.dart';
+
+void main() {
+  debugPaintBaselinesEnabled = true;
+  debugPaintSizeEnabled = true;
+  runApp(new MistazzyApp());
+}
 
 class MistazzyApp extends StatelessWidget {
   @override
