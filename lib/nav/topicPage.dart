@@ -8,6 +8,12 @@ class TopicPage extends StatelessWidget {
         title: Text("Topic page"),
       ),
       body: Container(),
+      bottomNavigationBar: ButtonBar(children: <Widget>[
+        FlatButton(
+            onPressed: () => Navigator.pop(context), child: Icon(Icons.home)),
+        FlatButton(onPressed: null, child: Icon(Icons.chat)),
+        FlatButton(onPressed: null, child: Icon(Icons.create))
+      ]),
     );
   }
 }
