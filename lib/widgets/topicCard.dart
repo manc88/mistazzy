@@ -6,6 +6,29 @@ import 'package:mistazzy/nav/topicPage.dart';
 import 'package:mistazzy/utils/DT.dart';
 import 'package:mistazzy/widgets/size.dart';
 
+class Tt extends StatelessWidget {
+  final Topic topic;
+
+  Tt(this.topic);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Card(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Text(
+                  'very234353very23435364654676very234353646546746very2343536465467546very23435364654677')
+            ],
+          )
+        ],
+      ),
+    ));
+  }
+}
+
 class TopicCard extends StatelessWidget {
   final Topic topic;
 
@@ -76,27 +99,21 @@ class _TopicTitleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(6.0, 2.0, 6.0, 2.0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext cont) => TopicPage())),
-              child: Text(title,
-                  textAlign: TextAlign.start,
-                  //overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontSize: TopicCardSize.titleText,
-                    color: Colors.blueGrey,
-                  ))),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        GestureDetector(
+            onTap: () => Navigator.push(context,
+                MaterialPageRoute(builder: (BuildContext cont) => TopicPage())),
+            child: Text(title,
+                textAlign: TextAlign.start,
+                textDirection: TextDirection.ltr,
+                maxLines: 3,
+                style: TextStyle(
+                  fontSize: TopicCardSize.titleText,
+                  color: Colors.blueGrey,
+                ))),
+      ],
     );
   }
 }

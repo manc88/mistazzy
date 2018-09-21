@@ -10,20 +10,18 @@ class TopicPage extends StatelessWidget {
         title: Text("Topic 0"),
       ),
       body: Container(child: TopicCard(Topic.testList()[0])),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ButtonBar(children: <Widget>[
-            FlatButton(
-                onPressed: () => Navigator.pop(context),
-                child: Icon(
-                  Icons.home,
-                  size: 32.0,
-                )),
-            FlatButton(onPressed: null, child: Icon(Icons.chat, size: 32.0)),
-            FlatButton(onPressed: null, child: Icon(Icons.create, size: 32.0))
-          ]),
-        ],
+      bottomNavigationBar: Container(
+        height: 50.0,
+        child: ButtonBar(children: <Widget>[
+          FlatButton(
+              onPressed: () => Navigator.pop(context),
+              child: Icon(
+                Icons.home,
+                size: 32.0,
+              )),
+          FlatButton(onPressed: () => {}, child: Icon(Icons.chat, size: 32.0)),
+          FlatButton(onPressed: () => {}, child: Icon(Icons.create, size: 32.0))
+        ]),
       ),
     );
   }

@@ -10,13 +10,15 @@ import 'package:flutter/rendering.dart'
         debugRepaintRainbowEnabled;
 
 void main() {
+  //debugPaintBaselinesEnabled = true;
+  //debugPaintBaselinesEnabled = true;
   runApp(new MistazzyApp());
 }
 
 class MistazzyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // debugPaintBaselinesEnabled = true;
+    //debugPaintBaselinesEnabled = true;
     // debugPaintBaselinesEnabled = true;
     // debugPaintLayerBordersEnabled = true;
     //     debugPaintPointersEnabled = true;
