@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mistazzy/models/user.dart';
 import 'package:mistazzy/models/topic.dart';
 import 'package:mistazzy/nav/topicPage.dart';
+import 'package:mistazzy/utils/DT.dart';
+import 'package:mistazzy/widgets/size.dart';
 
 class TopicCard extends StatelessWidget {
   final Topic topic;
@@ -11,25 +13,23 @@ class TopicCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 2.0),
-      child: Card(
-        margin: EdgeInsets.all(2.0),
-        child: Column(
-          children: <Widget>[
-            _UpperTopicRow(
-              user: topic.user,
-              topicTime: topic.created,
-            ),
-            _TopicTitleRow(
-              title: topic.text,
-            ),
-            _TopicBottomRow(
-                answersCount: topic.answersCount,
-                isVoting: topic.isVoting,
-                forum: topic.forum)
-          ],
-        ),
+    return Card(
+      elevation: 4.0,
+      margin: EdgeInsets.all(4.0),
+      child: Column(
+        children: <Widget>[
+          _UpperTopicRow(
+            user: topic.user,
+            topicTime: topic.created,
+          ),
+          _TopicTitleRow(
+            title: topic.text,
+          ),
+          _TopicBottomRow(
+              answersCount: topic.answersCount,
+              isVoting: topic.isVoting,
+              forum: topic.forum)
+        ],
       ),
     );
   }
@@ -49,20 +49,20 @@ class _UpperTopicRow extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(
-            topicTime.toString(),
-            style: TextStyle(
-                color: Colors.grey,
-                fontStyle: FontStyle.italic,
-                fontSize: 10.0,
-                fontWeight: FontWeight.bold),
-          ),
           Text(user.name,
               style: TextStyle(
                   color: Colors.black,
                   fontStyle: FontStyle.normal,
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.bold))
+                  fontSize: TopicCardSize.iconText,
+                  fontWeight: FontWeight.bold)),
+          Text(
+            Dt.topicDate(topicTime),
+            style: TextStyle(
+                color: Colors.grey,
+                fontStyle: FontStyle.italic,
+                fontSize: TopicCardSize.iconText,
+                fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
@@ -76,23 +76,26 @@ class _TopicTitleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext cont) => TopicPage())),
-      child: Container(
-        //padding: EdgeInsets.all(2.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(title,
-                textAlign: TextAlign.left,
-                //overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontSize: 20.0, color: Colors.grey, fontFamily: "Roboto"))
-          ],
-        ),
+    return Container(
+      padding: EdgeInsets.fromLTRB(6.0, 2.0, 6.0, 2.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          GestureDetector(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext cont) => TopicPage())),
+              child: Text(title,
+                  textAlign: TextAlign.start,
+                  //overflow: TextOverflow.clip,
+                  style: TextStyle(
+                    fontSize: TopicCardSize.titleText,
+                    color: Colors.blueGrey,
+                  ))),
+        ],
       ),
     );
   }
@@ -106,21 +109,24 @@ class _TopicBottomRow extends StatelessWidget {
   _TopicBottomRow({this.answersCount, this.isVoting, this.forum});
 
   Widget votePic() {
-    return isVoting ? Icon(Icons.assessment) : Icon(null);
+    return isVoting
+        ? Icon(Icons.assessment, size: TopicCardSize.icon, color: Colors.grey)
+        : Spacer(0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(2.0),
-      // margin: EdgeInsets.all(4.0),
+      margin: EdgeInsets.all(2.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           MessageCount(answersCount: answersCount),
-          Spacer(10),
-          Text(forum),
-          Spacer(10),
-          votePic()
+          // Text(
+          //   forum,
+          //   style: TextStyle(fontSize: 32.0, color: Colors.grey),
+          // ),
         ],
       ),
     );
@@ -143,15 +149,15 @@ class MessageCount extends StatelessWidget {
       children: <Widget>[
         Icon(
           Icons.chat,
-          size: 20.0,
-          color: Colors.blueGrey,
+          size: TopicCardSize.icon,
+          color: Colors.grey,
         ),
         Text(
           answersCount.toString(),
           style: TextStyle(
-              color: Colors.blueGrey,
+              color: Colors.grey,
               fontWeight: FontWeight.bold,
-              fontSize: 16.0),
+              fontSize: TopicCardSize.iconText),
         ),
       ],
     );

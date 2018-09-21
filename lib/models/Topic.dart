@@ -54,9 +54,9 @@ class Topic {
     this.created = DateTime.fromMillisecondsSinceEpoch(props['created'] * 1000);
     //this.updated = new DateTime.fromMicrosecondsSinceEpoch(props['updated']);
     this.answersCount = int.tryParse(props['answ']) ?? 0;
-    this.isVoting = props['is_voting'] == 1;
-    this.closed = props['closed'] == 1;
-    this.down = props['down'] == 1;
+    this.isVoting = props['is_voting'] == "1";
+    this.closed = props['closed'] == "1";
+    this.down = props['down'] == "1";
     this.user = new User(null, props['user0']);
   }
 
