@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mistazzy/models/topic.dart';
+import 'package:mistazzy/nav/paginator.dart';
 import 'package:mistazzy/widgets/topicCard.dart';
 
 class TopicPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class TopicPage extends StatelessWidget {
         height: 50.0,
         child: ButtonBar(children: <Widget>[
           FlatButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Paginator.pop(context),
               child: Icon(
                 Icons.home,
                 size: 32.0,

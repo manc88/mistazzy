@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:mistazzy/models/user.dart';
 import 'package:mistazzy/models/topic.dart';
+import 'package:mistazzy/nav/paginator.dart';
 import 'package:mistazzy/nav/topicPage.dart';
 import 'package:mistazzy/utils/DT.dart';
 import 'package:mistazzy/widgets/size.dart';
@@ -75,10 +75,7 @@ class _TopicTitle extends StatelessWidget {
           margin: EdgeInsets.all(2.0),
           padding: EdgeInsets.fromLTRB(6.0, 2.0, 4.0, 2.0),
           child: GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext cont) => TopicPage())),
+              onTap: () => Paginator.goToTopic(context),
               child: Text(topic.text,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
