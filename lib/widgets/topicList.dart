@@ -10,6 +10,12 @@ class TopicList extends StatefulWidget {
 class _TopicListState extends State<TopicList> {
   List<Topic> _topicList = Topic.testList();
 
+  @override
+  void initState() {
+    super.initState();
+    _topicList.sort((Topic t1, Topic t2) => t2.updated.compareTo(t1.updated));
+  }
+
   Widget _buildListItem(BuildContext cont, int index) {
     return TopicCard(_topicList[index]);
   }
@@ -17,6 +23,7 @@ class _TopicListState extends State<TopicList> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.grey[300],
       padding: EdgeInsets.all(4.0),
       child: Center(
         child: ListView.builder(

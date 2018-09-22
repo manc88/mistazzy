@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:mistazzy/models/topic.dart';
 import 'package:mistazzy/nav/paginator.dart';
-import 'package:mistazzy/widgets/topicCard.dart';
+import 'package:mistazzy/utils/Strings.dart';
+import 'package:mistazzy/widgets/size.dart';
+import 'package:mistazzy/widgets/topicView.dart';
 
 class TopicPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Topic 0"),
-      ),
-      body: Container(child: TopicCard(Topic.testList()[0])),
-      bottomNavigationBar: Container(
-        height: 50.0,
-        child: ButtonBar(children: <Widget>[
-          FlatButton(
-              onPressed: () => Paginator.pop(context),
-              child: Icon(
-                Icons.home,
-                size: 32.0,
-              )),
-          FlatButton(onPressed: () => {}, child: Icon(Icons.chat, size: 32.0)),
-          FlatButton(onPressed: () => {}, child: Icon(Icons.create, size: 32.0))
-        ]),
-      ),
-    );
+        appBar: AppBar(
+          backgroundColor: Colors.blueGrey,
+          title: Text(Strings.appName),
+        ),
+        body: Container(child: TopicView(topic: Topic.testList()[0])),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (int i) => print(i),
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.blueGrey,
+                  size: BottomBarSize.icon,
+                ),
+                title: Container()),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.chat,
+                    color: Colors.blueGrey, size: BottomBarSize.icon),
+                title: Container()),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.create,
+                    color: Colors.blueGrey, size: BottomBarSize.icon),
+                title: Container())
+          ],
+        ));
   }
 }

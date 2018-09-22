@@ -1,11 +1,15 @@
 import 'dart:convert' as converter;
 
 import 'package:mistazzy/models/user.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class Topic {
   String id = "";
 
 // - заголовок
+  String title = "";
+
+  // - заголовок
   String text = "";
 
 // - одно из {'1c','it','life','moder'}
@@ -47,12 +51,15 @@ class Topic {
       throw ArgumentError();
     }
 
+    var unescape = new HtmlUnescape();
+
     this.id = props['id'];
-    this.text = props['text'];
+    this.title = unescape.convert(props['text']);
+    this.text = unescape.convert(props['text']);
     this.forum = props['forum'];
     this.section = props['sect1'];
     this.created = DateTime.fromMillisecondsSinceEpoch(props['created'] * 1000);
-    //this.updated = new DateTime.fromMicrosecondsSinceEpoch(props['updated']);
+    this.updated = new DateTime.fromMicrosecondsSinceEpoch(props['utime']);
     this.answersCount = int.tryParse(props['answ']) ?? 0;
     this.isVoting = props['is_voting'] == "1";
     this.closed = props['closed'] == "1";
@@ -64,7 +71,7 @@ class Topic {
 
   @override
   String toString() {
-    return "id:" + id + "\n" + "text:" + text;
+    return "id:" + id + "\n" + "text:" + title;
   }
 
   static List<Topic> testList() {

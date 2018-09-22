@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:mistazzy/models/topic.dart';
 import 'package:mistazzy/nav/paginator.dart';
-import 'package:mistazzy/nav/topicPage.dart';
 import 'package:mistazzy/utils/DT.dart';
 import 'package:mistazzy/widgets/size.dart';
 
@@ -19,7 +18,7 @@ class TopicCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _UpperTopic(topic: topic),
+          UpperTopic(topic),
           _TopicTitle(topic: topic),
           _TopicBottom(topic: topic)
         ],
@@ -28,10 +27,10 @@ class TopicCard extends StatelessWidget {
   }
 }
 
-class _UpperTopic extends StatelessWidget {
+class UpperTopic extends StatelessWidget {
   final Topic topic;
 
-  _UpperTopic({this.topic});
+  UpperTopic(this.topic);
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +41,20 @@ class _UpperTopic extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(topic.user.name,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontStyle: FontStyle.normal,
-                  fontSize: TopicCardSize.iconText,
-                  fontWeight: FontWeight.bold)),
+          Row(children: [
+            Icon(
+              Icons.account_box,
+              size: TopicCardSize.icon,
+              color: Colors.black87,
+            ),
+            Spacer(2),
+            Text(topic.user.name,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontStyle: FontStyle.normal,
+                    fontSize: TopicCardSize.iconText,
+                    fontWeight: FontWeight.bold))
+          ]),
           Text(
             Dt.topicDate(topic.created),
             style: TextStyle(
@@ -76,7 +83,7 @@ class _TopicTitle extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(6.0, 2.0, 4.0, 2.0),
           child: GestureDetector(
               onTap: () => Paginator.goToTopic(context),
-              child: Text(topic.text,
+              child: Text(topic.title,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,
                   textDirection: TextDirection.ltr,
@@ -133,12 +140,12 @@ class _TopicBottom extends StatelessWidget {
                     Icon(
                       Icons.chat,
                       size: TopicCardSize.icon,
-                      color: Colors.grey,
+                      color: Colors.black87,
                     ),
                     Spacer(2),
                     Text(topic.answersCount.toString(),
                         style: TextStyle(
-                            color: Colors.grey,
+                            color: Colors.black87,
                             fontWeight: FontWeight.bold,
                             fontSize: TopicCardSize.iconText))
                   ],

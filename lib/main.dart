@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart'
         debugPaintLayerBordersEnabled,
         debugPaintPointersEnabled,
         debugRepaintRainbowEnabled;
+import 'package:mistazzy/utils/Strings.dart';
 
 void main() {
   //debugPaintBaselinesEnabled = true;
@@ -25,7 +26,7 @@ class MistazzyApp extends StatelessWidget {
     //     debugRepaintRainbowEnabled = true;
 
     return MaterialApp(
-      title: "mistazyy",
+      title: Strings.appName,
       home: TopicListPage(),
     );
   }
