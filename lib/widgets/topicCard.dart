@@ -6,29 +6,6 @@ import 'package:mistazzy/nav/topicPage.dart';
 import 'package:mistazzy/utils/DT.dart';
 import 'package:mistazzy/widgets/size.dart';
 
-class Tt extends StatelessWidget {
-  final Topic topic;
-
-  Tt(this.topic);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Card(
-      child: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Text(
-                  'very234353very23435364654676very234353646546746very2343536465467546very23435364654677')
-            ],
-          )
-        ],
-      ),
-    ));
-  }
-}
-
 class TopicCard extends StatelessWidget {
   final Topic topic;
 
@@ -40,46 +17,39 @@ class TopicCard extends StatelessWidget {
       elevation: 4.0,
       margin: EdgeInsets.all(4.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _UpperTopicRow(
-            user: topic.user,
-            topicTime: topic.created,
-          ),
-          _TopicTitleRow(
-            title: topic.text,
-          ),
-          _TopicBottomRow(
-              answersCount: topic.answersCount,
-              isVoting: topic.isVoting,
-              forum: topic.forum)
+          _UpperTopic(topic: topic),
+          _TopicTitle(topic: topic),
+          _TopicBottom(topic: topic)
         ],
       ),
     );
   }
 }
 
-class _UpperTopicRow extends StatelessWidget {
-  final DateTime topicTime;
-  final User user;
+class _UpperTopic extends StatelessWidget {
+  final Topic topic;
 
-  _UpperTopicRow({this.topicTime, this.user});
+  _UpperTopic({this.topic});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(4.0),
+      padding: EdgeInsets.fromLTRB(6.0, 4.0, 4.0, 2.0),
+      margin: EdgeInsets.all(2.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(user.name,
+          Text(topic.user.name,
               style: TextStyle(
                   color: Colors.black,
                   fontStyle: FontStyle.normal,
                   fontSize: TopicCardSize.iconText,
                   fontWeight: FontWeight.bold)),
           Text(
-            Dt.topicDate(topicTime),
+            Dt.topicDate(topic.created),
             style: TextStyle(
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,
@@ -92,41 +62,45 @@ class _UpperTopicRow extends StatelessWidget {
   }
 }
 
-class _TopicTitleRow extends StatelessWidget {
-  final String title;
+class _TopicTitle extends StatelessWidget {
+  final Topic topic;
 
-  _TopicTitleRow({this.title});
+  _TopicTitle({this.topic});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
+    return Column(
       children: <Widget>[
-        GestureDetector(
-            onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (BuildContext cont) => TopicPage())),
-            child: Text(title,
-                textAlign: TextAlign.start,
-                textDirection: TextDirection.ltr,
-                maxLines: 3,
-                style: TextStyle(
-                  fontSize: TopicCardSize.titleText,
-                  color: Colors.blueGrey,
-                ))),
+        Container(
+          margin: EdgeInsets.all(2.0),
+          padding: EdgeInsets.fromLTRB(6.0, 2.0, 4.0, 2.0),
+          child: GestureDetector(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext cont) => TopicPage())),
+              child: Text(topic.text,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.start,
+                  textDirection: TextDirection.ltr,
+                  maxLines: 3,
+                  style: TextStyle(
+                    fontSize: TopicCardSize.titleText,
+                    color: Colors.blueGrey,
+                  ))),
+        ),
       ],
     );
   }
 }
 
-class _TopicBottomRow extends StatelessWidget {
-  final int answersCount;
-  final bool isVoting;
-  final String forum;
+class _TopicBottom extends StatelessWidget {
+  final Topic topic;
 
-  _TopicBottomRow({this.answersCount, this.isVoting, this.forum});
+  _TopicBottom({this.topic});
 
   Widget votePic() {
-    return isVoting
+    return topic.isVoting
         ? Icon(Icons.assessment, size: TopicCardSize.icon, color: Colors.grey)
         : Spacer(0);
   }
@@ -134,50 +108,46 @@ class _TopicBottomRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(2.0),
-      margin: EdgeInsets.all(2.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          MessageCount(answersCount: answersCount),
-          // Text(
-          //   forum,
-          //   style: TextStyle(fontSize: 32.0, color: Colors.grey),
-          // ),
-        ],
-      ),
-    );
-  }
-}
-
-class MessageCount extends StatelessWidget {
-  const MessageCount({
-    Key key,
-    @required this.answersCount,
-  }) : super(key: key);
-
-  final int answersCount;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Icon(
-          Icons.chat,
-          size: TopicCardSize.icon,
-          color: Colors.grey,
-        ),
-        Text(
-          answersCount.toString(),
-          style: TextStyle(
-              color: Colors.grey,
-              fontWeight: FontWeight.bold,
-              fontSize: TopicCardSize.iconText),
-        ),
-      ],
-    );
+        margin: EdgeInsets.all(2.0),
+        padding: EdgeInsets.fromLTRB(6.0, 2.0, 4.0, 2.0),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        topic.forum,
+                        style: TextStyle(
+                            fontSize: TopicCardSize.iconText,
+                            color: Colors.grey),
+                      ),
+                      Spacer(2),
+                      votePic()
+                    ],
+                  )
+                ],
+              ),
+              Column(children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.chat,
+                      size: TopicCardSize.icon,
+                      color: Colors.grey,
+                    ),
+                    Spacer(2),
+                    Text(topic.answersCount.toString(),
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: TopicCardSize.iconText))
+                  ],
+                )
+              ])
+            ]));
   }
 }
 

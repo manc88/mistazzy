@@ -12,7 +12,6 @@ class _TopicListState extends State<TopicList> {
 
   Widget _buildList(BuildContext cont, int index) {
     return TopicCard(_topicList[index]);
-    //return Tt(_topicList[index]);
   }
 
   @override
