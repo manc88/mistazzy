@@ -10,7 +10,7 @@ class TopicList extends StatefulWidget {
 class _TopicListState extends State<TopicList> {
   List<Topic> _topicList = Topic.testList();
 
-  Widget _buildList(BuildContext cont, int index) {
+  Widget _buildListItem(BuildContext cont, int index) {
     return TopicCard(_topicList[index]);
   }
 
@@ -20,7 +20,7 @@ class _TopicListState extends State<TopicList> {
       padding: EdgeInsets.all(4.0),
       child: Center(
         child: ListView.builder(
-          itemBuilder: _buildList,
+          itemBuilder: _buildListItem,
           itemCount: _topicList.length,
         ),
       ),
