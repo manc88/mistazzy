@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mistazzy/models/topic.dart';
 import 'package:mistazzy/nav/topicPage.dart';
 
 class Paginator {
@@ -6,8 +7,8 @@ class Paginator {
     Navigator.pop(cnt);
   }
 
-  static void goToTopic(BuildContext cnt) {
-    Navigator.push(
-        cnt, MaterialPageRoute(builder: (BuildContext cont) => TopicPage()));
+  static void goToTopic(BuildContext cnt, Topic topic) {
+    Navigator.push(cnt,
+        MaterialPageRoute(builder: (BuildContext cont) => TopicPage(topic)));
   }
 }

@@ -19,6 +19,7 @@ class TopicCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           UpperTopic(topic),
+          Divider(),
           _TopicTitle(topic: topic),
           _TopicBottom(topic: topic)
         ],
@@ -82,7 +83,10 @@ class _TopicTitle extends StatelessWidget {
           margin: EdgeInsets.all(2.0),
           padding: EdgeInsets.fromLTRB(6.0, 2.0, 4.0, 2.0),
           child: GestureDetector(
-              onTap: () => Paginator.goToTopic(context),
+              onTap: () async {
+                await topic.loadFull();
+                Paginator.goToTopic(context, topic);
+              },
               child: Text(topic.title,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.start,

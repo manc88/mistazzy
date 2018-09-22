@@ -6,6 +6,17 @@ import 'package:mistazzy/widgets/size.dart';
 import 'package:mistazzy/widgets/topicView.dart';
 
 class TopicPage extends StatelessWidget {
+  final Topic topic;
+  TopicPage(this.topic);
+
+  void _bottomBarOnTap(int i, BuildContext cnt) {
+    switch (i) {
+      case 0:
+        Paginator.pop(cnt);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,9 +24,9 @@ class TopicPage extends StatelessWidget {
           backgroundColor: Colors.blueGrey,
           title: Text(Strings.appName),
         ),
-        body: Container(child: TopicView(topic: Topic.testList()[0])),
+        body: Container(child: TopicView(topic: topic)),
         bottomNavigationBar: BottomNavigationBar(
-          onTap: (int i) => print(i),
+          onTap: (int index) => _bottomBarOnTap(index, context),
           items: [
             BottomNavigationBarItem(
                 icon: Icon(

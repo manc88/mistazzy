@@ -16,13 +16,18 @@ class TopicView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         UpperTopic(topic),
+        Divider(),
         TopicTitle(topic),
+        // Divider(),
         Row(
           children: <Widget>[
             Expanded(
-              child: Text(
-                topic.text,
-                style: TextStyle(fontSize: TopicSize.bodyText),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  topic.text,
+                  style: TextStyle(fontSize: TopicSize.bodyText),
+                ),
               ),
             )
           ],

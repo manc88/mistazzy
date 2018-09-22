@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mistazzy/models/topic.dart';
 
@@ -8,12 +10,19 @@ class TopicList extends StatefulWidget {
 }
 
 class _TopicListState extends State<TopicList> {
-  List<Topic> _topicList = Topic.testList();
+  List<Topic> _topicList;
 
   @override
   void initState() {
     super.initState();
-    _topicList.sort((Topic t1, Topic t2) => t2.updated.compareTo(t1.updated));
+    this._loadData();
+  }
+
+  Future<void> _loadData() async {
+    var res = await Topic.getList();
+    setState(() {
+      _topicList = res;
+    });
   }
 
   Widget _buildListItem(BuildContext cont, int index) {
@@ -28,7 +37,7 @@ class _TopicListState extends State<TopicList> {
       child: Center(
         child: ListView.builder(
           itemBuilder: _buildListItem,
-          itemCount: _topicList.length,
+          itemCount: _topicList == null ? 0 : _topicList.length,
         ),
       ),
     );
