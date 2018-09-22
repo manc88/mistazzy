@@ -1,13 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mistazzy/models/topic.dart';
 import 'package:mistazzy/widgets/size.dart';
 import 'package:mistazzy/widgets/topicCard.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TopicView extends StatelessWidget {
   final Topic topic;
 
   TopicView({this.topic});
+
+  Future<Null> _launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: false, forceWebView: false);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +42,7 @@ class TopicView extends StatelessWidget {
                       letterSpacing: 0.4),
                   a: TextStyle(background: new Paint()..color = Colors.lime)),
               //TODO URL LAUNCHER
-              onTapLink: (item) => print(item),
+              onTapLink: (item) => _launchInBrowser(item),
               data: topic.text,
             ),
           ),
