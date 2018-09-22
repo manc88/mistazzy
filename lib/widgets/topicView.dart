@@ -21,11 +21,14 @@ class TopicView extends StatelessWidget {
         TopicTitle(topic),
         // Divider(),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(14.0),
           child: SingleChildScrollView(
             child: MarkdownBody(
               styleSheet: MarkdownStyleSheet(
-                  p: TextStyle(color: Colors.black87, fontSize: 18.0),
+                  p: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 18.0,
+                      letterSpacing: 0.4),
                   a: TextStyle(background: new Paint()..color = Colors.lime)),
               //TODO URL LAUNCHER
               onTapLink: (item) => print(item),
