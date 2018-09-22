@@ -139,7 +139,7 @@ Uri getTopicMessages(Topic topic) {
   var params = new Map<String, String>();
   params["id"] = topic.id;
   params["from"] = "0";
-  params["from"] = topic.answersCount.toString();
+  params["to"] = topic.answersCount.toString();
 
   return new Uri(
       scheme: 'https',

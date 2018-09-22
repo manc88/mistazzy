@@ -26,6 +26,8 @@ class MistazzyApp extends StatelessWidget {
     //     debugRepaintRainbowEnabled = true;
 
     return MaterialApp(
+      theme: ThemeData(
+          primaryTextTheme: TextTheme(title: TextStyle(fontSize: 26.0))),
       title: Strings.appName,
       home: TopicListPage(),
     );

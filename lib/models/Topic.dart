@@ -6,6 +6,8 @@ import 'package:html_unescape/html_unescape.dart';
 import 'package:mistazzy/utils/network.dart';
 import 'package:mistazzy/utils/urls.dart';
 
+import 'package:html2md/html2md.dart' as html2md;
+
 class Topic {
   String id = "";
 
@@ -104,12 +106,15 @@ class Topic {
     var unescape = new HtmlUnescape();
 
     for (var item in i) {
-      if (item['n'] == 0) {
-        this.text = unescape.convert(item['text']);
+      if (item['n'] == "0") {
+        // this.text = unescape.convert(item['text']);
+        String markdown = html2md.convert(item['text']);
+        this.text = markdown;
+        //print(this.text);
         loaded = true;
         break;
       } else {
-        print(item);
+        //print(item);
       }
     }
   }
