@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mistazzy/nav/routes.dart';
 import 'package:mistazzy/nav/topicListPage.dart';
 
-import 'package:flutter/rendering.dart'
-    show
-        debugPaintSizeEnabled,
-        debugPaintBaselinesEnabled,
-        debugPaintLayerBordersEnabled,
-        debugPaintPointersEnabled,
-        debugRepaintRainbowEnabled;
+// import 'package:flutter/rendering.dart'
+//     show
+//         debugPaintSizeEnabled,
+//         debugPaintBaselinesEnabled,
+//         debugPaintLayerBordersEnabled,
+//         debugPaintPointersEnabled,
+//         debugRepaintRainbowEnabled;
 import 'package:mistazzy/utils/Strings.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MistazzyApp extends StatelessWidget {
           primaryTextTheme: TextTheme(title: TextStyle(fontSize: 26.0))),
       title: Strings.appName,
       home: TopicListPage(),
+      routes: appRoutes,
     );
   }
 }

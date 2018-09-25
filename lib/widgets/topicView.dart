@@ -40,7 +40,10 @@ class TopicView extends StatelessWidget {
                       color: Colors.black87,
                       fontSize: 18.0,
                       letterSpacing: 0.4),
-                  a: TextStyle(background: new Paint()..color = Colors.lime)),
+                  a: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.white,
+                      background: new Paint()..color = Colors.blueGrey)),
               //TODO URL LAUNCHER
               onTapLink: (item) => _launchInBrowser(item),
               data: topic.text,

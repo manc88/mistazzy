@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mistazzy/utils/Strings.dart';
+import 'package:mistazzy/widgets/drawer.dart';
 import 'package:mistazzy/widgets/size.dart';
 import '../widgets/topicList.dart';
 
@@ -7,6 +8,7 @@ class TopicListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         title: Text(Strings.appName),
