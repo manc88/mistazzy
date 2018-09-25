@@ -91,7 +91,7 @@ class Topic {
   }
 
   static Future<List<Topic>> getList() async {
-    var uri1 = getTopicsList(topics: 10);
+    var uri1 = getTopicsList(topics: 30);
     var res = await httpGet(uri1);
     Iterable i = converter.jsonDecode(res);
     List<Topic> lst = i.map((item) => Topic.fromPreview(item)).toList();

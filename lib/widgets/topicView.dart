@@ -30,30 +30,19 @@ class TopicView extends StatelessWidget {
         UpperTopic(topic),
         Divider(),
         TopicTitle(topic),
-        // Divider(),
-        Padding(
-          padding: const EdgeInsets.all(14.0),
-          child: SingleChildScrollView(
-            child: MarkdownBody(
-              styleSheet: MarkdownStyleSheet(
-                  p: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 18.0,
-                      letterSpacing: 0.4),
-                  a: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white,
-                      background: new Paint()..color = Colors.blueGrey)),
-              //TODO URL LAUNCHER
-              onTapLink: (item) => _launchInBrowser(item),
-              data: topic.text,
-            ),
+        Expanded(
+          child: Markdown(
+            styleSheet: MarkdownStyleSheet(
+                p: TextStyle(
+                    color: Colors.black87, fontSize: 18.0, letterSpacing: 0.4),
+                a: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white,
+                    background: new Paint()..color = Colors.blueGrey)),
+            //TODO URL LAUNCHER
+            onTapLink: (item) => _launchInBrowser(item),
+            data: topic.text,
           ),
-
-          //Text(
-          //   topic.text,
-          //   style: TextStyle(fontSize: TopicSize.bodyText),
-          // ),
         ),
       ],
     );
