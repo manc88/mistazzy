@@ -14,6 +14,8 @@ class TopicPage extends StatelessWidget {
       case 0:
         Paginator.pop(cnt);
         break;
+      case 1:
+        Paginator.goToTopicComments(cnt, topic);
     }
   }
 

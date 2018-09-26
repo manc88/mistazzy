@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert' as converter;
 
+import 'package:mistazzy/models/comment.dart';
 import 'package:mistazzy/models/user.dart';
 import 'package:html_unescape/html_unescape.dart';
 import 'package:mistazzy/utils/network.dart';
@@ -49,6 +50,8 @@ class Topic {
 
 //- загружена полностью
   bool loaded;
+
+  List<Comment> comments = <Comment>[];
 
   User user = new User("id", "name");
 
@@ -103,19 +106,42 @@ class Topic {
     var res2 = await httpGet(uri2);
     Iterable i = converter.jsonDecode(res2);
 
-    // var unescape = new HtmlUnescape();
-
     for (var item in i) {
       if (item['n'] == "0") {
         // this.text = unescape.convert(item['text']);
         String markdown = html2md.convert(item['text']);
         this.text = markdown;
+        item['text'] = this.title;
+        comments.add(Comment.fromJson(item));
         //print(this.text);
         loaded = true;
-        break;
       } else {
-        //print(item);
+        Comment com = Comment.fromJson(item);
+        com.answeredTo = get_answered(com);
+        comments.add(com);
       }
+    }
+  }
+
+  Comment get_answered(Comment c) {
+    String textPart =
+        c.text.substring(0, c.text.length < 6 ? c.text.length : 6);
+    RegExp regExp = new RegExp(
+      r"\([0-9]{1,3}\)",
+      caseSensitive: false,
+      multiLine: false,
+    );
+
+    if (regExp.hasMatch(textPart)) {
+      String num = regExp
+          .firstMatch(textPart)
+          .group(0)
+          .replaceAll(RegExp(r"\("), "")
+          .replaceAll(RegExp(r"\)"), "");
+      int i = int.parse(num);
+      return i <= comments.length ? comments[i] : null;
+    } else {
+      return null;
     }
   }
 }
