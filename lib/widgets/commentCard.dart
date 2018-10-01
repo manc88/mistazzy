@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:mistazzy/models/comment.dart';
 import 'package:mistazzy/utils/DT.dart';
 
@@ -75,8 +76,12 @@ class _base extends StatelessWidget {
             ],
           ),
           Divider(),
-          Text(
-            comment.text,
+          Column(
+            children: <Widget>[
+              Text(
+                comment.text,
+              ),
+            ],
           ),
         ],
       ),
