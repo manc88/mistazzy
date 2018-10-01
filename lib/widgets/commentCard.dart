@@ -78,8 +78,8 @@ class _base extends StatelessWidget {
           Divider(),
           Column(
             children: <Widget>[
-              Text(
-                comment.text,
+              MarkdownBody(
+                data: comment.text,
               ),
             ],
           ),
