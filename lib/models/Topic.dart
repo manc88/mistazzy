@@ -137,7 +137,7 @@ class Topic {
           .replaceAll(RegExp(r"\("), "")
           .replaceAll(RegExp(r"\)"), "");
       int i = int.parse(num);
-      return i <= comments.length ? comments[i] : null;
+      return i <= comments.length ? comments[i == 0 ? 0 : i - 1] : null;
     } else {
       return null;
     }

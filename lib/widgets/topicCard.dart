@@ -48,10 +48,10 @@ class UpperTopic extends StatelessWidget {
               size: TopicCardSize.icon,
               color: Colors.black87,
             ),
-            Spacer(2),
+            SizedBox(width: 2.0),
             Text(topic.user.name,
                 style: TextStyle(
-                    color: Colors.black87,
+                    //color: Colors.black87,
                     fontStyle: FontStyle.normal,
                     fontSize: TopicCardSize.iconText,
                     fontWeight: FontWeight.bold))
@@ -59,7 +59,7 @@ class UpperTopic extends StatelessWidget {
           Text(
             Dt.topicDate(topic.created),
             style: TextStyle(
-                color: Colors.grey,
+                //color: Colors.grey,
                 fontStyle: FontStyle.italic,
                 fontSize: TopicCardSize.iconText,
                 fontWeight: FontWeight.bold),
@@ -94,7 +94,7 @@ class _TopicTitle extends StatelessWidget {
                   maxLines: 3,
                   style: TextStyle(
                     fontSize: TopicCardSize.titleText,
-                    color: Colors.blueGrey,
+                    color: Theme.of(context).primaryColor,
                   ))),
         ),
       ],
@@ -110,7 +110,7 @@ class _TopicBottom extends StatelessWidget {
   Widget votePic() {
     return topic.isVoting
         ? Icon(Icons.assessment, size: TopicCardSize.icon, color: Colors.grey)
-        : Spacer(0);
+        : Container();
   }
 
   @override
@@ -127,48 +127,48 @@ class _TopicBottom extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         topic.forum,
-                        style: TextStyle(
-                            fontSize: TopicCardSize.iconText,
-                            color: Colors.grey),
+                        style: Theme.of(context).textTheme.display1,
                       ),
-                      Spacer(2),
+                      SizedBox(
+                        width: 2.0,
+                      ),
                       votePic()
                     ],
                   )
                 ],
               ),
-              Column(children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.chat,
-                      size: TopicCardSize.icon,
-                      color: Colors.black87,
-                    ),
-                    Spacer(2),
-                    Text(topic.answersCount.toString(),
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
-                            fontSize: TopicCardSize.iconText))
-                  ],
-                )
-              ])
+              Column(children: <Widget>[ChatIcon(topic)])
             ]));
   }
 }
 
-class Spacer extends StatelessWidget {
-  final int _width;
+class ChatIcon extends StatelessWidget {
+  final Topic topic;
 
-  const Spacer(
-    this._width, {
-    Key key,
-  }) : super(key: key);
+  ChatIcon(this.topic);
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: _width.toDouble());
+    return GestureDetector(
+      onTap: () async {
+        await topic.loadFull();
+        Paginator.goToTopicComments(context, topic);
+      },
+      child: Stack(
+        alignment: const Alignment(0.0, -0.3),
+        children: <Widget>[
+          Icon(
+            Icons.chat_bubble,
+            size: 30.0,
+            color: Colors.grey,
+          ),
+          Text(topic.answersCount.toString(),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: topic.answersCount > 999 ? 12.0 : 14.0))
+        ],
+      ),
+    );
   }
 }

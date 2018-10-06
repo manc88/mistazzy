@@ -12,8 +12,9 @@ class CommentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      onExpansionChanged: null,
       initiallyExpanded: false,
-      title: _base(comment),
+      title: _Base(comment),
       trailing: answerOn != null
           ? null
           : Container(
@@ -42,9 +43,9 @@ class CommentTile extends StatelessWidget {
   }
 }
 
-class _base extends StatelessWidget {
+class _Base extends StatelessWidget {
   final Comment comment;
-  _base(this.comment);
+  _Base(this.comment);
   @override
   Widget build(BuildContext context) {
     return Container(
