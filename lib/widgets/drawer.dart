@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mistazzy/nav/paginator.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -18,7 +19,9 @@ class AppDrawer extends StatelessWidget {
             subtitle: Text("exerimental"),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Paginator.goToTopicsList(context);
+            },
             leading: Icon(Icons.chat_bubble_outline),
             title: Text("Chats"),
             subtitle: Text("Sorting, Favorits etc"),
