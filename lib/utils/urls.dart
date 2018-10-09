@@ -38,7 +38,7 @@ const String TOPIC_LIST = "ajax_index.php";
 
 Uri getTopicsList(
     {int topics = 0,
-    DateTime utime,
+    double utime,
     String forum,
     String section,
     bool mytopics = false,
@@ -50,7 +50,7 @@ Uri getTopicsList(
   }
 
   if (utime != null) {
-    params["utime"] = utime.millisecondsSinceEpoch.toString();
+    params["utime"] = utime.toInt().toString();
   }
 
   if (forum != null) {
