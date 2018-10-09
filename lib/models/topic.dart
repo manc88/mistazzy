@@ -64,9 +64,8 @@ class Topic {
 
     var unescape = new HtmlUnescape();
 
-    this.id = props['id'];
+    this.id = props['id'].toString();
     this.title = unescape.convert(props['text']);
-    //this.text = unescape.convert(props['text']);
     this.forum = props['forum'];
     this.section = props['sect1'];
     this.created = DateTime.fromMillisecondsSinceEpoch(props['created'] * 1000);
@@ -113,7 +112,7 @@ class Topic {
   }
 
   static Future<List<Topic>> getList({double utime}) async {
-    var uri1 = getTopicsList(topics: 30); //, utime: utime
+    var uri1 = getTopicsList(topics: 5); //, utime: utime
     var res = await httpGet(uri1);
     if (res == null)
       return <Topic>[

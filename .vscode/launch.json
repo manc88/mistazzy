@@ -6,6 +6,7 @@
     "configurations": [
         {
             "name": "Flutter",
+            // "flutterMode": "profile",
             "request": "launch",
             "type": "dart"
         }

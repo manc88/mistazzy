@@ -7,7 +7,7 @@ const String BASE = "forum.mista.ru";
 ////////////// список тем форума
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-const String TOPIC_LIST = "ajax_index.php";
+const String TOPIC_LIST = "/ajax_index.php";
 // /api/topic.php (/ajax_index.php) - список тем форума
 // forum.mista.ru/ajax_index.php?topics=5
 // параметры:
