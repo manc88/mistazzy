@@ -108,22 +108,20 @@ class Topic {
 
     for (var item in i) {
       if (item['n'] == "0") {
-        // this.text = unescape.convert(item['text']);
         String markdown = html2md.convert(item['text']);
         this.text = markdown;
         item['text'] = this.title;
         comments.add(Comment.fromJson(item));
-        //print(this.text);
         loaded = true;
       } else {
         Comment com = Comment.fromJson(item);
-        com.answeredTo = get_answered(com);
+        com.answeredTo = getAnswered(com);
         comments.add(com);
       }
     }
   }
 
-  Comment get_answered(Comment c) {
+  Comment getAnswered(Comment c) {
     String textPart =
         c.text.substring(0, c.text.length < 6 ? c.text.length : 6);
     RegExp regExp = new RegExp(
@@ -139,7 +137,7 @@ class Topic {
           .replaceAll(RegExp(r"\("), "")
           .replaceAll(RegExp(r"\)"), "");
       int i = int.parse(num);
-      return i <= comments.length ? comments[i] : null;
+      return i <= comments.length ? comments[i == 0 ? 0 : i - 1] : null;
     } else {
       return null;
     }

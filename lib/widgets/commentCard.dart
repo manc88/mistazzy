@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:mistazzy/models/comment.dart';
 import 'package:mistazzy/utils/DT.dart';
 
@@ -11,8 +12,11 @@ class CommentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      leading: Image.network(
+          "https://www.forum.mista.ru/users_photo/mid/${comment.userId}"),
+      onExpansionChanged: null,
       initiallyExpanded: false,
-      title: _base(comment),
+      title: _Base(comment),
       trailing: answerOn != null
           ? null
           : Container(
@@ -41,9 +45,9 @@ class CommentTile extends StatelessWidget {
   }
 }
 
-class _base extends StatelessWidget {
+class _Base extends StatelessWidget {
   final Comment comment;
-  _base(this.comment);
+  _Base(this.comment);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,8 +79,12 @@ class _base extends StatelessWidget {
             ],
           ),
           Divider(),
-          Text(
-            comment.text,
+          Column(
+            children: <Widget>[
+              MarkdownBody(
+                data: comment.text,
+              ),
+            ],
           ),
         ],
       ),

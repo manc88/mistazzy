@@ -1,3 +1,5 @@
+import 'package:html2md/html2md.dart' as html2md;
+
 class Comment {
   String id;
   String text;
@@ -15,8 +17,8 @@ class Comment {
       throw ArgumentError();
     }
 
+    this.text = html2md.convert(props['text']);
     this.id = props['id'];
-    this.text = props['text'];
     this.n = int.parse(props['n']);
     this.user = props['user'];
     this.userId = props['userId'];

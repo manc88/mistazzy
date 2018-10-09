@@ -39,7 +39,6 @@ class TopicView extends StatelessWidget {
                     fontStyle: FontStyle.italic,
                     color: Colors.white,
                     background: new Paint()..color = Colors.blueGrey)),
-            //TODO URL LAUNCHER
             onTapLink: (item) => _launchInBrowser(item),
             data: topic.text,
           ),
