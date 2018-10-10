@@ -7,7 +7,7 @@ const String BASE = "forum.mista.ru";
 ////////////// список тем форума
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-const String TOPIC_LIST = "/ajax_index.php";
+const String TOPIC_LIST = "/api/topic.php";
 // /api/topic.php (/ajax_index.php) - список тем форума
 // forum.mista.ru/ajax_index.php?topics=5
 // параметры:
@@ -38,7 +38,7 @@ const String TOPIC_LIST = "/ajax_index.php";
 
 Uri getTopicsList(
     {int topics = 0,
-    double utime,
+    int utime,
     String forum,
     String section,
     bool mytopics = false,
@@ -50,7 +50,7 @@ Uri getTopicsList(
   }
 
   if (utime != null) {
-    params["utime"] = utime.toInt().toString();
+    params["beforeutime"] = utime.toString();
   }
 
   if (forum != null) {

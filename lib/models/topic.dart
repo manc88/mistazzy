@@ -9,7 +9,7 @@ import 'package:mistazzy/utils/urls.dart';
 
 import 'package:html2md/html2md.dart' as html2md;
 
-class Topic {
+class Topic implements Comparable {
   String id = "";
 
 // - заголовок
@@ -70,10 +70,10 @@ class Topic {
     this.section = props['sect1'];
     this.created = DateTime.fromMillisecondsSinceEpoch(props['created'] * 1000);
     this.updated = DateTime.fromMillisecondsSinceEpoch(props['utime'] * 1000);
-    this.answersCount = int.tryParse(props['answ']) ?? 0;
-    this.isVoting = props['is_voting'] == "1";
-    this.closed = props['closed'] == "1";
-    this.down = props['down'] == "1";
+    this.answersCount = props['answ'] ?? 0;
+    this.isVoting = props['is_voting'] == 1;
+    this.closed = props['closed'] == 1;
+    this.down = props['down'] == 1;
     this.user = new User(null, props['user0']);
   }
 
@@ -101,18 +101,21 @@ class Topic {
   @override
   String toString() {
     StringBuffer sb = StringBuffer()
+      ..write("\n")
       ..write("id = " + id)
       ..write("\n")
       ..write('title = ' + title)
       ..write("\n")
       ..write('text = ' + text)
       ..write('\n')
+      ..write('updated = ' + updated.millisecondsSinceEpoch.toString())
+      ..write('\n')
       ..write("------------------------------------");
     return sb.toString();
   }
 
-  static Future<List<Topic>> getList({double utime}) async {
-    var uri1 = getTopicsList(topics: 5); //, utime: utime
+  static Future<List<Topic>> getList({int utime}) async {
+    var uri1 = getTopicsList(topics: 20, utime: utime); //, utime: utime
     var res = await httpGet(uri1);
     if (res == null)
       return <Topic>[
@@ -178,4 +181,13 @@ class Topic {
   int get hashCode => int.tryParse(this.id);
 
   bool operator ==(obj) => obj is Topic && hashCode == obj.hashCode;
+
+  @override
+  int compareTo(other) {
+    if (!other is Topic) {
+      return -1;
+    }
+    return updated.millisecondsSinceEpoch -
+        (other as Topic).updated.millisecondsSinceEpoch;
+  }
 }

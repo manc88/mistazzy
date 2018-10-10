@@ -13,7 +13,9 @@ class CommentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       leading: Image.network(
-          "https://www.forum.mista.ru/users_photo/mid/${comment.userId}"),
+        "https://www.forum.mista.ru/users_photo/thumb/${comment.userId}.jpg",
+        scale: 2.0,
+      ),
       onExpansionChanged: null,
       initiallyExpanded: false,
       title: _Base(comment),

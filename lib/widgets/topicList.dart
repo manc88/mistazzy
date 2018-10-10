@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:mistazzy/models/topic.dart';
@@ -12,7 +13,7 @@ class _TopicListState extends State<TopicList> {
   List<Topic> _topicList = <Topic>[];
   ScrollController _scrollController = new ScrollController();
   bool isPerformingRequest = false;
-  double _lastTopicTime;
+  int _lastTopicTime;
 
   @override
   void initState() {
@@ -39,9 +40,10 @@ class _TopicListState extends State<TopicList> {
       setState(() {
         _topicList.addAll(res);
         isPerformingRequest = false;
-        _lastTopicTime =
-            _topicList[_topicList.length - 1].created.millisecondsSinceEpoch /
-                1000;
+        _lastTopicTime = (_topicList
+                .map((f) => f.updated.millisecondsSinceEpoch)
+                .reduce(min) ~/
+            1000);
       });
     }
   }
