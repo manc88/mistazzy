@@ -15,9 +15,11 @@ class CommentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      leading: Image.network(
-        "https://www.forum.mista.ru/users_photo/thumb/${comment.userId}.jpg",
-        scale: 2.0,
+      leading: CircleAvatar(
+        backgroundColor: Colors.amberAccent,
+        child: Image.network(
+          "https://www.forum.mista.ru/users_photo/thumb/${comment.userId}.jpg",
+        ),
       ),
       onExpansionChanged: null,
       initiallyExpanded: false,
