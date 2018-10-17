@@ -83,8 +83,8 @@ class _TopicTitle extends StatelessWidget {
           margin: EdgeInsets.all(2.0),
           padding: EdgeInsets.fromLTRB(6.0, 2.0, 4.0, 2.0),
           child: GestureDetector(
-              onTap: () async {
-                await topic.loadFull();
+              onTap: () {
+                //await topic.loadFull();
                 Paginator.goToTopic(context, topic);
               },
               child: Text(topic.title,

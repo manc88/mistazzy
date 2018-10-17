@@ -5,9 +5,34 @@ import 'package:mistazzy/utils/Strings.dart';
 import 'package:mistazzy/widgets/size.dart';
 import 'package:mistazzy/widgets/topicView.dart';
 
-class TopicPage extends StatelessWidget {
+class TopicPage extends StatefulWidget {
   final Topic topic;
   TopicPage(this.topic);
+
+  @override
+  TopicPageState createState() {
+    return new TopicPageState();
+  }
+}
+
+class TopicPageState extends State<TopicPage> {
+  bool loading;
+
+  void loadData() async {
+    await widget.topic.loadFull();
+    setState(() {
+      loading = false;
+    });
+  }
+
+  void initState() {
+    super.initState();
+    setState(() {
+      loading = true;
+    });
+
+    loadData();
+  }
 
   void _bottomBarOnTap(int i, BuildContext cnt) {
     switch (i) {
@@ -15,37 +40,46 @@ class TopicPage extends StatelessWidget {
         Paginator.pop(cnt);
         break;
       case 1:
-        Paginator.goToTopicComments(cnt, topic);
+        Paginator.goToTopicComments(cnt, widget.topic);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget loader = Center(
+      child: CircularProgressIndicator(
+        backgroundColor: Colors.blueGrey,
+      ),
+    );
+
+    Widget body = Container(child: TopicView(topic: widget.topic));
+
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          title: Text(Strings.appName),
-        ),
-        body: Container(child: TopicView(topic: topic)),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (int index) => _bottomBarOnTap(index, context),
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.blueGrey,
-                  size: BottomBarSize.icon,
-                ),
-                title: Container()),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.chat,
-                    color: Colors.blueGrey, size: BottomBarSize.icon),
-                title: Container()),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.create,
-                    color: Colors.blueGrey, size: BottomBarSize.icon),
-                title: Container())
-          ],
-        ));
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
+        title: Text(Strings.appName),
+      ),
+      body: loading ? loader : body,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (int index) => _bottomBarOnTap(index, context),
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: Colors.blueGrey,
+                size: BottomBarSize.icon,
+              ),
+              title: Container()),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.chat,
+                  color: Colors.blueGrey, size: BottomBarSize.icon),
+              title: Container()),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.create,
+                  color: Colors.blueGrey, size: BottomBarSize.icon),
+              title: Container())
+        ],
+      ),
+    );
   }
 }
