@@ -77,7 +77,7 @@ class _Base extends StatelessWidget {
                 children: <Widget>[Text('#' + comment.n.toString())],
               ),
               Container(
-                width: 4.0,
+                width: 4.0, //wd6
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
