@@ -77,7 +77,7 @@ class _Base extends StatelessWidget {
                 children: <Widget>[Text('#' + comment.n.toString())],
               ),
               Container(
-                width: 4.0, //wd6
+                width: 4.0,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,5 +116,3 @@ class _Base extends StatelessWidget {
     );
   }
 }
-
-//new tile
