@@ -28,7 +28,7 @@ class _CommentsPageState extends State<CommentsPage> {
 
   Widget _itemBuilder(BuildContext context, int index) {
     //return CommentTile(_commentsList[index], _commentsList[index].answeredTo);
-    return MyCommentTile();
+    return MyCommentTile(_commentsList[index], _commentsList[index].answeredTo);
   }
 
   @override

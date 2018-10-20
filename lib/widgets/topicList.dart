@@ -72,12 +72,12 @@ class _TopicListState extends State<TopicList> {
   }
 
   Widget _buildProgressIndicator() {
-    return new Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 80.0, vertical: 10.0),
-      child: new Center(
-        child: new Opacity(
+      child: Center(
+        child: Opacity(
           opacity: isPerformingRequest ? 1.0 : 0.0,
-          child: new CircularProgressIndicator(),
+          child: CircularProgressIndicator(),
         ),
       ),
     );
