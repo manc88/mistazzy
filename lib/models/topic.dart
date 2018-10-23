@@ -171,7 +171,7 @@ class Topic implements Comparable {
           .replaceAll(RegExp(r"\("), "")
           .replaceAll(RegExp(r"\)"), "");
       int i = int.parse(num);
-      return i <= comments.length ? comments[i == 0 ? 0 : i - 1] : null;
+      return i <= comments.length ? comments[i == 0 ? 0 : i] : null;
     } else {
       return null;
     }
