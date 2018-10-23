@@ -16,6 +16,62 @@ class MyCommentTile extends StatefulWidget {
 }
 
 class _CommentTileState extends State<MyCommentTile> {
+  bool _showAnsweredOn = false;
+
+  void _arrowPress() {
+    setState(() {
+      _showAnsweredOn = !_showAnsweredOn;
+    });
+  }
+
+  Widget _buildAnswerOnText(BuildContext cnt) {
+    if (!_showAnsweredOn) return Container();
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+      child: Container(
+        color: Colors.grey,
+        child: MarkdownBody(
+          styleSheet: MarkdownStyleSheet(
+              p: TextStyle(
+                  color: Colors.black, fontSize: 18.0, letterSpacing: 0.4),
+              a: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                  background: new Paint()..color = Colors.blueGrey)),
+          onTapLink: (item) => _launchInBrowser(item),
+          data: widget.parentComment.text ?? "null comment text",
+        ),
+      ),
+      // Divider()
+    );
+  }
+
+  Widget _buildArrowPicUp(BuildContext cnt) {
+    if (!_showAnsweredOn || widget.parentComment == null) return Container();
+    return TableCell(
+      verticalAlignment: TableCellVerticalAlignment.top,
+      child: IconButton(
+        onPressed: _arrowPress,
+        icon: Icon(
+          Icons.arrow_drop_up,
+          size: 32.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildArrowPicDown(BuildContext cnt) {
+    if (_showAnsweredOn || widget.parentComment == null) return Container();
+    return IconButton(
+      onPressed: _arrowPress,
+      icon: Icon(
+        Icons.arrow_drop_down,
+        size: 32.0,
+      ),
+    );
+  }
+
   Future<Null> _launchInBrowser(String url) async {
     if (await canLaunch(url)) {
       await launch(url, forceSafariVC: false, forceWebView: false);
@@ -77,23 +133,15 @@ class _CommentTileState extends State<MyCommentTile> {
                   )
                 ]),
                 TableRow(children: [
-                  Container(),
-                  TableCell(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 2.0),
-                      child: widget.parentComment == null
-                          ? Container()
-                          : Text(
-                              "Ответ на : ${widget.parentComment.user}",
-                              style: TextStyle(fontSize: 18.0),
-                            ),
-                    ),
-                  ),
+                  _buildArrowPicUp(context),
+                  _buildAnswerOnText(context),
                   Container()
                 ]),
                 TableRow(children: [
-                  Container(),
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.top,
+                    child: _buildArrowPicDown(context),
+                  ),
                   TableCell(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
