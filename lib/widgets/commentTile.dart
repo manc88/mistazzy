@@ -130,9 +130,19 @@ class _CommentTileState extends State<MyCommentTile> {
     return TableCell(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Text(
-          widget.comment.user,
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              widget.comment.user,
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              Dt.topicDate(widget.comment.utime),
+              style: TextStyle(decorationStyle: TextDecorationStyle.wavy),
+            )
+          ],
         ),
       ),
     );
