@@ -18,10 +18,41 @@ class MyCommentTile extends StatefulWidget {
 class _CommentTileState extends State<MyCommentTile> {
   bool _showAnsweredOn = false;
 
-  void _arrowPress() {
-    setState(() {
-      _showAnsweredOn = !_showAnsweredOn;
-    });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(6.0),
+        child: Column(
+          children: <Widget>[
+            Table(
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              columnWidths: {
+                0: FractionColumnWidth(.1),
+                1: FractionColumnWidth(.8),
+                2: FractionColumnWidth(.1)
+              },
+              //border: TableBorder.all(),
+              children: [
+                TableRow(children: [
+                  _buildUserAvatar(),
+                  _buildUserName(),
+                  _buildCommentNumber()
+                ]),
+                TableRow(children: [
+                  _buildArrowPicUp(context),
+                  _buildAnswerOnText(context),
+                  Container()
+                ]),
+                TableRow(children: [
+                  _buildArrowContainer(context),
+                  _buildCommentText(),
+                  _buildReplyButton()
+                ])
+              ],
+            ),
+            Divider(),
+          ],
+        ));
   }
 
   Widget _buildAnswerOnText(BuildContext cnt) {
@@ -45,6 +76,12 @@ class _CommentTileState extends State<MyCommentTile> {
       ),
       // Divider()
     );
+  }
+
+  void _arrowPress() {
+    setState(() {
+      _showAnsweredOn = !_showAnsweredOn;
+    });
   }
 
   Widget _buildArrowPicUp(BuildContext cnt) {
@@ -80,104 +117,88 @@ class _CommentTileState extends State<MyCommentTile> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.all(6.0),
-        child: Column(
+  TableCell _buildUserAvatar() {
+    return TableCell(
+      verticalAlignment: TableCellVerticalAlignment.middle,
+      child: Image.network(
+        "https://www.forum.mista.ru/users_photo/thumb/${widget.comment.userId}.jpg",
+      ),
+    );
+  }
+
+  TableCell _buildUserName() {
+    return TableCell(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Text(
+          widget.comment.user,
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  TableCell _buildArrowContainer(BuildContext context) {
+    return TableCell(
+      verticalAlignment: TableCellVerticalAlignment.top,
+      child: _buildArrowPicDown(context),
+    );
+  }
+
+  TableCell _buildCommentText() {
+    return TableCell(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: MarkdownBody(
+          styleSheet: MarkdownStyleSheet(
+              p: TextStyle(
+                  color: Colors.black87, fontSize: 18.0, letterSpacing: 0.4),
+              a: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white,
+                  background: new Paint()..color = Colors.blueGrey)),
+          onTapLink: (item) => _launchInBrowser(item),
+          data: widget.comment.text ?? "null comment text",
+        ),
+      ),
+    );
+  }
+
+  TableCell _buildReplyButton() {
+    return TableCell(
+      verticalAlignment: TableCellVerticalAlignment.bottom,
+      child: IconButton(
+        tooltip: "repply",
+        onPressed: () {},
+        icon: Icon(
+          Icons.reply,
+          color: Colors.grey,
+          size: 32.0,
+        ),
+      ),
+    );
+  }
+
+  TableCell _buildCommentNumber() {
+    return TableCell(
+      child: Center(
+        //margin: EdgeInsets.all(10.0),
+        child: Stack(
+          alignment: const Alignment(0.3, -0.3),
           children: <Widget>[
-            Table(
-              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              columnWidths: {
-                0: FractionColumnWidth(.1),
-                1: FractionColumnWidth(.8),
-                2: FractionColumnWidth(.1)
-              },
-              //border: TableBorder.all(),
-              children: [
-                TableRow(children: [
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: Image.network(
-                      "https://www.forum.mista.ru/users_photo/thumb/${widget.comment.userId}.jpg",
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      widget.comment.user,
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  TableCell(
-                    child: Center(
-                      //margin: EdgeInsets.all(10.0),
-                      child: Stack(
-                        alignment: const Alignment(0.3, -0.3),
-                        children: <Widget>[
-                          Icon(
-                            Icons.bookmark,
-                            color: Colors.grey,
-                            size: 48.0,
-                          ),
-                          Text(
-                            widget.comment.n.toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ]),
-                TableRow(children: [
-                  _buildArrowPicUp(context),
-                  _buildAnswerOnText(context),
-                  Container()
-                ]),
-                TableRow(children: [
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.top,
-                    child: _buildArrowPicDown(context),
-                  ),
-                  TableCell(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: MarkdownBody(
-                        styleSheet: MarkdownStyleSheet(
-                            p: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 18.0,
-                                letterSpacing: 0.4),
-                            a: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                color: Colors.white,
-                                background: new Paint()
-                                  ..color = Colors.blueGrey)),
-                        onTapLink: (item) => _launchInBrowser(item),
-                        data: widget.comment.text ?? "null comment text",
-                      ),
-                    ),
-                  ),
-                  TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.bottom,
-                    child: IconButton(
-                      tooltip: "repply",
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.reply,
-                        color: Colors.grey,
-                        size: 32.0,
-                      ),
-                    ),
-                  )
-                ])
-              ],
+            Icon(
+              Icons.bookmark,
+              color: Colors.grey,
+              size: 48.0,
             ),
-            Divider(),
+            Text(
+              widget.comment.n.toString(),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mistazzy/models/comment.dart';
 import 'package:mistazzy/models/topic.dart';
-import 'package:mistazzy/widgets/commentCard.dart';
 import 'package:mistazzy/widgets/commentTile.dart';
 import 'package:mistazzy/widgets/drawer.dart';
 

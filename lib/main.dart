@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mistazzy/nav/routes.dart';
 import 'package:mistazzy/nav/topicListPage.dart';
-
-import 'package:flutter/rendering.dart'
-    show
-        debugPaintSizeEnabled,
-        debugPaintBaselinesEnabled,
-        debugPaintLayerBordersEnabled,
-        debugPaintPointersEnabled,
-        debugRepaintRainbowEnabled;
 import 'package:mistazzy/utils/Strings.dart';
 
 void main() {
