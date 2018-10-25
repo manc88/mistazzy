@@ -1,6 +1,6 @@
 class User {
-  String id = "init";
-  String name = "init";
+  String id = "";
+  String name = "";
 
   User(this.id, this.name);
 
