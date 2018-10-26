@@ -58,14 +58,19 @@ class _TopicListState extends State<TopicList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey[300],
-      padding: EdgeInsets.all(4.0),
-      child: Center(
-        child: ListView.builder(
-          controller: _scrollController,
-          itemBuilder: _buildListItem,
-          itemCount: _topicList == null ? 0 + 1 : _topicList.length + 1,
+    return RefreshIndicator(
+      color: Colors.white,
+      backgroundColor: Colors.blueGrey,
+      onRefresh: _loadData,
+      child: Container(
+        color: Colors.grey[300],
+        padding: EdgeInsets.all(4.0),
+        child: Center(
+          child: ListView.builder(
+            controller: _scrollController,
+            itemBuilder: _buildListItem,
+            itemCount: _topicList == null ? 0 + 1 : _topicList.length + 1,
+          ),
         ),
       ),
     );
