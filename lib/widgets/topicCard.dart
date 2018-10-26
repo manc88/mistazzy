@@ -151,7 +151,7 @@ class ChatIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await topic.loadFull();
+        await topic.loadComments();
         Paginator.goToTopicComments(context, topic);
       },
       child: Stack(

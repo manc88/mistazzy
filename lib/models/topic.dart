@@ -48,8 +48,9 @@ class Topic implements Comparable {
 //- 1 если голосование
   bool isVoting;
 
-//- загружена полностью
-  bool loaded;
+  bool commentsLoaded = false;
+
+  bool bodyLoaded = false;
 
   List<Comment> comments = <Comment>[];
 
@@ -117,64 +118,41 @@ class Topic implements Comparable {
   static Future<List<Topic>> getList({int utime}) async {
     var uri1 = getTopicsList(topics: 20, utime: utime); //, utime: utime
     var res = await httpGet(uri1);
-    if (res == null)
-      return <Topic>[
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock(),
-        Topic.mock()
-      ];
+    if (res == null) return <Topic>[];
     Iterable i = converter.jsonDecode(res);
     List<Topic> lst = i.map((item) => Topic.fromPreview(item)).toList();
     return lst;
   }
 
-  Future<void> loadFull() async {
-    var uri2 = getTopicMessages(this);
-    var res2 = await httpGet(uri2);
-    Iterable i = converter.jsonDecode(res2);
+  Future<Null> loadBody() async {
+    if (!bodyLoaded) {
+      var uri2 = getTopicMessages(this);
+      var res2 = await httpGet(uri2);
+      Iterable i = converter.jsonDecode(res2);
 
-    for (var item in i) {
-      if (item['n'] == "0") {
-        String markdown = html2md.convert(item['text']);
-        this.text = markdown;
-        item['text'] = this.title;
-        comments.add(Comment.fromJson(item));
-        loaded = true;
-      } else {
-        Comment com = Comment.fromJson(item);
-        com.answeredTo = getAnswered(com);
-        comments.add(com);
+      for (var item in i) {
+        if (item['n'] == "0") {
+          String markdown = html2md.convert(item['text']);
+          this.text = markdown;
+          item['text'] = this.title;
+          comments.add(Comment.fromJson(item));
+          bodyLoaded = true;
+          break;
+        }
       }
     }
   }
 
-  Comment getAnswered(Comment c) {
-    String textPart =
-        c.text.substring(0, c.text.length < 6 ? c.text.length : 6);
-    RegExp regExp = new RegExp(
-      r"\([0-9]{1,3}\)",
-      caseSensitive: false,
-      multiLine: false,
-    );
-
-    if (regExp.hasMatch(textPart)) {
-      String num = regExp
-          .firstMatch(textPart)
-          .group(0)
-          .replaceAll(RegExp(r"\("), "")
-          .replaceAll(RegExp(r"\)"), "");
-      int i = int.parse(num);
-      return comments.firstWhere((Comment item) => item.n == i);
-    } else {
-      return null;
+  Future<Null> loadComments() async {
+    var uriTopicMessages = getTopicMessages(this);
+    var topicMessagerJsonString = await httpGet(uriTopicMessages);
+    Iterable i = converter.jsonDecode(topicMessagerJsonString);
+    for (var item in i) {
+      if (item['n'] != "0") {
+        comments.add(Comment.fromJson(item));
+      }
     }
+    commentsLoaded = true;
   }
 
   @override

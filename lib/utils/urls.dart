@@ -135,11 +135,11 @@ const String TOPIC_MESSAGES = "api/message.php";
 // utime - время отправки сообщения в формате unixtime.
 // vote - выбранный пункт голосования
 
-Uri getTopicMessages(Topic topic) {
+Uri getTopicMessages(Topic topic, {int amount}) {
   var params = new Map<String, String>();
   params["id"] = topic.id;
   params["from"] = "0";
-  params["to"] = topic.answersCount.toString();
+  params["to"] = amount ?? topic.answersCount.toString();
 
   return new Uri(
       scheme: 'https',

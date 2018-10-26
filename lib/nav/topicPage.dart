@@ -18,11 +18,15 @@ class TopicPage extends StatefulWidget {
 class TopicPageState extends State<TopicPage> {
   bool loading;
 
-  void loadData() async {
-    await widget.topic.loadFull();
+  void loadBody() async {
+    await widget.topic.loadBody();
     setState(() {
       loading = false;
     });
+  }
+
+  void loadComments() async {
+    await widget.topic.loadComments();
   }
 
   void initState() {
@@ -31,7 +35,8 @@ class TopicPageState extends State<TopicPage> {
       loading = true;
     });
 
-    loadData();
+    loadBody();
+    loadComments();
   }
 
   void _bottomBarOnTap(int i, BuildContext cnt) {
