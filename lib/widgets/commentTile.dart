@@ -64,10 +64,14 @@ class _CommentTileState extends State<MyCommentTile> {
                   Container(),
                   _buildCommentText(),
                   _buildReplyButton()
-                ])
+                ]),
               ],
             ),
-            Divider(),
+            Divider(
+              //height: 10.0,
+              color: Colors.grey,
+              indent: 5.0,
+            ),
           ],
         ));
   }
@@ -128,17 +132,21 @@ class _CommentTileState extends State<MyCommentTile> {
     return TableCell(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0),
-        child: Row(
+        child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               widget.comment.user,
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.grey),
             ),
             Text(
               Dt.topicDate(widget.comment.utime),
-              style: TextStyle(decorationStyle: TextDecorationStyle.wavy),
             )
           ],
         ),
@@ -169,7 +177,7 @@ class _CommentTileState extends State<MyCommentTile> {
         onPressed: () {},
         icon: Icon(
           Icons.reply,
-          color: Colors.grey,
+          color: Colors.blueGrey,
           size: 32.0,
         ),
       ),
@@ -185,7 +193,7 @@ class _CommentTileState extends State<MyCommentTile> {
           children: <Widget>[
             Icon(
               Icons.bookmark,
-              color: Colors.grey,
+              color: Colors.blueGrey,
               size: 48.0,
             ),
             Text(
