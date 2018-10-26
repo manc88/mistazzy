@@ -53,8 +53,7 @@ class TopicPageState extends State<TopicPage> {
   Widget build(BuildContext context) {
     Widget loader = Center(
       child: CircularProgressIndicator(
-        backgroundColor: Colors.blueGrey,
-      ),
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey)),
     );
 
     Widget body = Container(child: TopicView(topic: widget.topic));

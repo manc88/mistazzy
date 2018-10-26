@@ -82,7 +82,9 @@ class _TopicListState extends State<TopicList> {
       child: Center(
         child: Opacity(
           opacity: isPerformingRequest ? 1.0 : 0.0,
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey),
+          ),
         ),
       ),
     );
