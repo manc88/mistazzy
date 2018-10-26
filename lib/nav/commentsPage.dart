@@ -15,8 +15,8 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage> {
   List<Comment> _commentsList;
-
   Topic topic;
+  ScrollController _scrollController = new ScrollController();
 
   @override
   void initState() {
@@ -33,13 +33,50 @@ class _CommentsPageState extends State<CommentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Комментарии"),
+      appBar: AppBar(
+        title: Text("Комментарии"),
+      ),
+      drawer: AppDrawer(),
+      body: ListView.builder(
+        controller: _scrollController,
+        itemCount: _commentsList.length,
+        itemBuilder: _itemBuilder,
+      ),
+      floatingActionButton: _buildFOAB(),
+    );
+  }
+
+  Column _buildFOAB() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        FloatingActionButton(
+          backgroundColor: Colors.blueGrey,
+          heroTag: null,
+          mini: true,
+          child: Icon(Icons.arrow_upward),
+          onPressed: () {
+            _scrollController.animateTo(
+              _scrollController.position.minScrollExtent,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 300),
+            );
+          },
         ),
-        drawer: AppDrawer(),
-        body: ListView.builder(
-          itemCount: _commentsList.length,
-          itemBuilder: _itemBuilder,
-        ));
+        FloatingActionButton(
+          backgroundColor: Colors.blueGrey,
+          heroTag: null,
+          mini: true,
+          child: Icon(Icons.arrow_downward),
+          onPressed: () {
+            _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 300),
+            );
+          },
+        ),
+      ],
+    );
   }
 }
