@@ -14,19 +14,34 @@ class CommentsPage extends StatefulWidget {
 }
 
 class _CommentsPageState extends State<CommentsPage> {
+  bool _loading = true;
   List<Comment> _commentsList;
   Topic topic;
   ScrollController _scrollController = new ScrollController();
 
+  void loadData() async {
+    await topic.loadComments();
+    _commentsList = topic.comments;
+
+    setState(() {
+      _loading = false;
+    });
+  }
+
   @override
   void initState() {
+    super.initState();
     topic = widget.topic;
     _commentsList = topic.comments;
-    super.initState();
+    setState(() {
+      _loading = !topic.commentsLoaded;
+    });
+    if (_loading) {
+      loadData();
+    }
   }
 
   Widget _itemBuilder(BuildContext context, int index) {
-    //return CommentTile(_commentsList[index], _commentsList[index].answeredTo);
     return MyCommentTile(_commentsList[index], topic);
   }
 
@@ -37,46 +52,59 @@ class _CommentsPageState extends State<CommentsPage> {
         title: Text("Комментарии"),
       ),
       drawer: AppDrawer(),
-      body: ListView.builder(
-        controller: _scrollController,
-        itemCount: _commentsList.length,
-        itemBuilder: _itemBuilder,
-      ),
+      body: _buildListView(),
       floatingActionButton: _buildFOAB(),
     );
   }
 
-  Column _buildFOAB() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        FloatingActionButton(
-          backgroundColor: Colors.blueGrey,
-          heroTag: null,
-          mini: true,
-          child: Icon(Icons.arrow_upward),
-          onPressed: () {
-            _scrollController.animateTo(
-              _scrollController.position.minScrollExtent,
-              curve: Curves.easeOut,
-              duration: const Duration(milliseconds: 300),
-            );
-          },
-        ),
-        FloatingActionButton(
-          backgroundColor: Colors.blueGrey,
-          heroTag: null,
-          mini: true,
-          child: Icon(Icons.arrow_downward),
-          onPressed: () {
-            _scrollController.animateTo(
-              _scrollController.position.maxScrollExtent,
-              curve: Curves.easeOut,
-              duration: const Duration(milliseconds: 300),
-            );
-          },
-        ),
-      ],
-    );
+  Widget _buildListView() {
+    if (!_loading) {
+      return ListView.builder(
+        controller: _scrollController,
+        itemCount: _commentsList.length,
+        itemBuilder: _itemBuilder,
+      );
+    } else {
+      return Center(
+        child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blueGrey)),
+      );
+    }
+  }
+
+  Widget _buildFOAB() {
+    return _loading
+        ? Container()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FloatingActionButton(
+                backgroundColor: Colors.blueGrey,
+                heroTag: null,
+                mini: true,
+                child: Icon(Icons.arrow_upward),
+                onPressed: () {
+                  _scrollController.animateTo(
+                    _scrollController.position.minScrollExtent,
+                    curve: Curves.easeOut,
+                    duration: const Duration(milliseconds: 300),
+                  );
+                },
+              ),
+              FloatingActionButton(
+                backgroundColor: Colors.blueGrey,
+                heroTag: null,
+                mini: true,
+                child: Icon(Icons.arrow_downward),
+                onPressed: () {
+                  _scrollController.animateTo(
+                    _scrollController.position.maxScrollExtent,
+                    curve: Curves.easeOut,
+                    duration: const Duration(milliseconds: 300),
+                  );
+                },
+              ),
+            ],
+          );
   }
 }
