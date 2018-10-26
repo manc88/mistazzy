@@ -9,7 +9,7 @@ class CommentsPage extends StatefulWidget {
   CommentsPage(this.topic);
   @override
   _CommentsPageState createState() {
-    return new _CommentsPageState();
+    return _CommentsPageState();
   }
 }
 

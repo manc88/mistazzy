@@ -43,7 +43,7 @@ Uri getTopicsList(
     String section,
     bool mytopics = false,
     User user}) {
-  var params = new Map<String, String>();
+  var params = Map<String, String>();
 
   if (topics != 0) {
     params["topics"] = topics.toString();
@@ -69,7 +69,7 @@ Uri getTopicsList(
     params["user"] = user.id;
   }
 
-  return new Uri(
+  return Uri(
       scheme: 'https', host: BASE, path: TOPIC_LIST, queryParameters: params);
 }
 
@@ -106,9 +106,9 @@ const String TOPIC_GET = "ajax_gettopic.php";
 // * result - количество голосов
 
 Uri getTopic(Topic topic) {
-  var params = new Map<String, String>();
+  var params = Map<String, String>();
   params["id"] = topic.id;
-  return new Uri(
+  return Uri(
       scheme: 'https', host: BASE, path: TOPIC_GET, queryParameters: params);
 }
 
@@ -136,12 +136,12 @@ const String TOPIC_MESSAGES = "api/message.php";
 // vote - выбранный пункт голосования
 
 Uri getTopicMessages(Topic topic, {int amount}) {
-  var params = new Map<String, String>();
+  var params = Map<String, String>();
   params["id"] = topic.id;
   params["from"] = "0";
   params["to"] = amount ?? topic.answersCount.toString();
 
-  return new Uri(
+  return Uri(
       scheme: 'https',
       host: BASE,
       path: TOPIC_MESSAGES,

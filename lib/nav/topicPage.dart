@@ -11,7 +11,7 @@ class TopicPage extends StatefulWidget {
 
   @override
   TopicPageState createState() {
-    return new TopicPageState();
+    return TopicPageState();
   }
 }
 
