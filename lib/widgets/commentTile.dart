@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:mistazzy/models/comment.dart';
 import 'package:mistazzy/models/topic.dart';
 import 'package:mistazzy/utils/DT.dart';
@@ -87,13 +88,9 @@ class _CommentTileState extends State<MyCommentTile> {
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: Container(
           color: Colors.grey,
-          child: MarkdownBody(
-            styleSheet: MarkdownStyleSheet(
-              p: TextStyle(
-                  color: Colors.black, fontSize: 18.0, letterSpacing: 0.4),
-            ),
-            //onTapLink: (item) => _hadleUserClick(item),
+          child: Html(
             data: _currentAnswer.text,
+            defaultTextStyle: TextStyle(fontSize: 20.0),
           ),
         ),
         // Divider()
@@ -142,7 +139,6 @@ class _CommentTileState extends State<MyCommentTile> {
               style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
                   decorationColor: Colors.grey),
             ),
             Text(
@@ -158,13 +154,28 @@ class _CommentTileState extends State<MyCommentTile> {
     return TableCell(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: MarkdownBody(
-          styleSheet: MarkdownStyleSheet(
-            p: TextStyle(
-                color: Colors.black87, fontSize: 18.0, letterSpacing: 0.4),
-          ),
-          onTapLink: (item) => _hadleUserClick(item),
+        child: Html(
+          onLinkTap: (item) => _hadleUserClick(item),
           data: widget.comment.text ?? "null comment text",
+          defaultTextStyle: TextStyle(fontSize: 20.0),
+          customRender: (node, children) {
+            if (node is dom.Element) {
+              switch (node.localName) {
+                case "a":
+                  return GestureDetector(
+                      child: Text(
+                        node.innerHtml.trim(),
+                        style: TextStyle(color: Colors.blueAccent),
+                      ),
+                      onTap: () {
+                        if (node.attributes.containsKey('href')) {
+                          String url = node.attributes['href'];
+                          _hadleUserClick(url);
+                        }
+                      });
+              }
+            }
+          },
         ),
       ),
     );

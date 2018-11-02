@@ -1,5 +1,3 @@
-import 'package:html2md/html2md.dart' as html2md;
-
 class Comment {
   String id;
 
@@ -33,7 +31,8 @@ class Comment {
         (match) =>
             "<a href=mistazylink${match.group(0).replaceAll(RegExp(r'\('), "").replaceAll(RegExp(r'\)'), "")}> (${match.group(0).replaceAll(RegExp(r'\('), "").replaceAll(RegExp(r'\)'), "")}) </a>");
 
-    this.text = html2md.convert(rawText.trim());
+    //this.text = html2md.convert(rawText.trim());
+    this.text = rawText;
     this.id = props['id'];
     this.n = int.parse(props['n']);
     this.user = props['user'];

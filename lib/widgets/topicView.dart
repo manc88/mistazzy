@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mistazzy/models/topic.dart';
 import 'package:mistazzy/widgets/size.dart';
 import 'package:mistazzy/widgets/topicCard.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class TopicView extends StatelessWidget {
   final Topic topic;
@@ -22,28 +22,31 @@ class TopicView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        UpperTopic(topic),
-        Divider(),
-        TopicTitle(topic),
-        Expanded(
-          child: Markdown(
-            styleSheet: MarkdownStyleSheet(
-                p: TextStyle(
-                    color: Colors.black87, fontSize: 18.0, letterSpacing: 0.4),
-                a: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white,
-                    background: new Paint()..color = Colors.blueGrey)),
-            onTapLink: (item) => _launchInBrowser(item),
-            data: topic.text,
-          ),
-        ),
-      ],
+    print(topic.text);
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        //crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          UpperTopic(topic),
+          Divider(),
+          TopicTitle(topic),
+          //_buildTopicBody(),
+          //HtmlView(data: "<p>${topic.rawText}</p>"),
+          _buildTopicBody(),
+        ],
+      ),
+    );
+  }
+
+  Padding _buildTopicBody() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+      child: Html(
+          onLinkTap: (item) => _launchInBrowser(item),
+          data: topic.text,
+          defaultTextStyle: TextStyle(fontSize: 20.0)),
     );
   }
 }

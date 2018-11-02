@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:convert' as converter;
-
 import 'package:mistazzy/models/comment.dart';
 import 'package:mistazzy/models/user.dart';
-import 'package:html_unescape/html_unescape.dart';
 import 'package:mistazzy/utils/network.dart';
 import 'package:mistazzy/utils/urls.dart';
-
-import 'package:html2md/html2md.dart' as html2md;
+import 'package:html_unescape/html_unescape.dart';
 
 class Topic implements Comparable {
   String id = "";
@@ -15,7 +12,7 @@ class Topic implements Comparable {
 // - заголовок
   String title = "null";
 
-  // - заголовок
+  // - текст
   String text = "null";
 
 // - одно из {'1c','it','life','moder'}
@@ -132,9 +129,7 @@ class Topic implements Comparable {
 
       for (var item in i) {
         if (item['n'] == "0") {
-          String markdown = html2md.convert(item['text']);
-          this.text = markdown;
-          item['text'] = this.title;
+          this.text = item['text'];
           comments.add(Comment.fromJson(item));
           bodyLoaded = true;
           break;
