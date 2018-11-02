@@ -53,8 +53,37 @@ class _CommentsPageState extends State<CommentsPage> {
       ),
       drawer: AppDrawer(),
       body: _buildListView(),
-      floatingActionButton: _buildFOAB(),
+      //floatingActionButton: _buildFOAB(),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
+  }
+
+  BottomNavigationBar _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      onTap: (int index) => _navBarOnTap(index, context),
+      fixedColor: Colors.blueGrey,
+      iconSize: 32.0,
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.arrow_upward),
+          title: Container(),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.arrow_downward),
+          title: Container(),
+        )
+      ],
+    );
+  }
+
+  void _navBarOnTap(int i, BuildContext cnt) {
+    switch (i) {
+      case 0:
+        _jumpUpward();
+        break;
+      case 1:
+        _jumpDownward();
+    }
   }
 
   Widget _buildListView() {
@@ -83,28 +112,44 @@ class _CommentsPageState extends State<CommentsPage> {
                 heroTag: null,
                 mini: true,
                 child: Icon(Icons.arrow_upward),
-                onPressed: () {
-                  _scrollController.animateTo(
-                    _scrollController.position.minScrollExtent,
-                    curve: Curves.easeOut,
-                    duration: const Duration(milliseconds: 300),
-                  );
-                },
+                onPressed: _scrollUpward,
               ),
               FloatingActionButton(
                 backgroundColor: Colors.blueGrey,
                 heroTag: null,
                 mini: true,
                 child: Icon(Icons.arrow_downward),
-                onPressed: () {
-                  _scrollController.animateTo(
-                    _scrollController.position.maxScrollExtent,
-                    curve: Curves.easeOut,
-                    duration: const Duration(milliseconds: 300),
-                  );
-                },
+                onPressed: _scrollDownward,
               ),
             ],
           );
+  }
+
+  void _scrollDownward() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  void _jumpDownward() {
+    _scrollController.jumpTo(
+      _scrollController.position.maxScrollExtent,
+    );
+  }
+
+  void _jumpUpward() {
+    _scrollController.jumpTo(
+      0.0,
+    );
+  }
+
+  void _scrollUpward() {
+    _scrollController.animateTo(
+      _scrollController.position.minScrollExtent,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 300),
+    );
   }
 }

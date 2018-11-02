@@ -33,10 +33,10 @@ class _TopicListState extends State<TopicList> {
     super.dispose();
   }
 
-  Future<void> _loadData() async {
+  Future<void> _loadData({bool loadnew = false}) async {
     if (!isPerformingRequest) {
       setState(() => isPerformingRequest = true);
-      var res = await Topic.getList(utime: _lastTopicTime);
+      var res = await Topic.getList(utime: loadnew ? null : _lastTopicTime);
       setState(() {
         _topicList.addAll(res);
         isPerformingRequest = false;
@@ -61,7 +61,9 @@ class _TopicListState extends State<TopicList> {
     return RefreshIndicator(
       color: Colors.white,
       backgroundColor: Colors.blueGrey,
-      onRefresh: _loadData,
+      onRefresh: () {
+        return _loadData(loadnew: true);
+      },
       child: Container(
         color: Colors.grey[300],
         padding: EdgeInsets.all(4.0),
