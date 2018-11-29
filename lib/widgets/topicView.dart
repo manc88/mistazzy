@@ -22,7 +22,6 @@ class TopicView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(topic.text);
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.max,
