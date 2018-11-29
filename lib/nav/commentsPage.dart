@@ -15,13 +15,11 @@ class CommentsPage extends StatefulWidget {
 
 class _CommentsPageState extends State<CommentsPage> {
   bool _loading = true;
-  List<Comment> _commentsList;
   Topic topic;
   ScrollController _scrollController = new ScrollController();
 
   void loadData() async {
     await topic.loadComments();
-    _commentsList = topic.comments;
 
     setState(() {
       _loading = false;
@@ -32,7 +30,6 @@ class _CommentsPageState extends State<CommentsPage> {
   void initState() {
     super.initState();
     topic = widget.topic;
-    _commentsList = topic.comments;
     setState(() {
       _loading = !topic.commentsLoaded;
     });
@@ -42,7 +39,7 @@ class _CommentsPageState extends State<CommentsPage> {
   }
 
   Widget _itemBuilder(BuildContext context, int index) {
-    return MyCommentTile(_commentsList[index], topic);
+    return MyCommentTile(topic.comments[index], topic);
   }
 
   @override
@@ -90,7 +87,7 @@ class _CommentsPageState extends State<CommentsPage> {
     if (!_loading) {
       return ListView.builder(
         controller: _scrollController,
-        itemCount: _commentsList.length,
+        itemCount: topic.comments.length,
         itemBuilder: _itemBuilder,
       );
     } else {
