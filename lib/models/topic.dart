@@ -147,6 +147,7 @@ class Topic implements Comparable {
         comments.add(Comment.fromJson(item));
       }
     }
+    comments.sort();
     commentsLoaded = true;
   }
 
@@ -157,7 +158,7 @@ class Topic implements Comparable {
 
   @override
   int compareTo(other) {
-    if (!other is Topic) {
+    if (!(other is Topic)) {
       return -1;
     }
     return int.parse(this.id) - int.tryParse((other as Topic).id);

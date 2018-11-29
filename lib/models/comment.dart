@@ -1,4 +1,4 @@
-class Comment {
+class Comment extends Comparable {
   String id;
 
   String text;
@@ -39,5 +39,13 @@ class Comment {
     this.userId = props['userId'];
     this.utime =
         DateTime.fromMillisecondsSinceEpoch(int.parse(props['utime']) * 1000);
+  }
+
+  @override
+  int compareTo(other) {
+    if (!(other is Comment)) {
+      return -1;
+    }
+    return n - (other as Comment).n;
   }
 }
