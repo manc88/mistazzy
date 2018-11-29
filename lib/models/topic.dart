@@ -160,7 +160,6 @@ class Topic implements Comparable {
     if (!other is Topic) {
       return -1;
     }
-    return updated.millisecondsSinceEpoch -
-        (other as Topic).updated.millisecondsSinceEpoch;
+    return int.parse(this.id) - int.tryParse((other as Topic).id);
   }
 }
